@@ -5,8 +5,25 @@
         <title>Dionysus's Wish</title>
         <script type="text/javascript" src="phaser.js"> </script>
         <script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="Boot.js"></script>
+		<script type="text/javascript" src="Preloader.js"></script>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+				background-color: #000000;
+			}
+		</style>
     </head>
 	<body>
-		<div id="gameDiv"></div>
+		<div id="gameContainer"></div>
+		<script type="text/javascript">
+			window.onload = function(){
+				var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameContainer');
+				game.state.add('Boot', DionysusWish.Boot);
+				game.state.add('Preloader', DionysusWish.Preloader);
+				game.state.start('Boot');
+			}
+		</script>
     </body>
 </html>
