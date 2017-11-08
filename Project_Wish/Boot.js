@@ -4,7 +4,7 @@ DionysusWish.Boot = function(game){};
 
 DionysusWish.Boot.prototype = {
 	preload: function(){
-		
+		this.load.image('titleLogo', 'assets/images/Game_Logo.jpg');
 	},
 	
 	create: function(){
@@ -18,6 +18,10 @@ DionysusWish.Boot.prototype = {
 		this.scale.minWidth = 800;
 		//Minimum browser window height
 		this.scale.minHeight = 600;
+		//maximum browser window width
+		this.scale.maxWidth = 1200;
+		//maximum browser window height
+		this.scale.maxHeight = 900;
 		//This centers the game window horizontally
 		this.scale.pageAlignHorizontally = true;
 		//This centers the game window vertically

@@ -5,7 +5,7 @@ DionysusWish.Preloader = function(game){
 DionysusWish.Preloader.prototype = {
 	
 	preload: function(){
-		
+		this.titleScreen = this.add.image(0,0, 'titleLogo');
 	},
 	
 	create: function(){
