@@ -5,6 +5,7 @@ DionysusWish.Boot = function(game){};
 DionysusWish.Boot.prototype = {
 	preload: function(){
 		this.load.image('titleLogo', 'assets/images/Game_Logo.jpg');
+		this.load.image('loadBar','assets/graphics/loadingBar.png');
 	},
 	
 	create: function(){
@@ -28,7 +29,7 @@ DionysusWish.Boot.prototype = {
 		this.scale.pageAlignVertically = true;
 		
 		this.input.addPointer();
-		this.stage.backgroundColor = '#B53103';
+		this.stage.backgroundColor = '#001570';
 		
 		this.state.start('Preloader');
 		
