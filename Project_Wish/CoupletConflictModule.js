@@ -27,18 +27,27 @@ function insultChosen(a, b, c){
     console.log(this.insult.insult);
 }
 
+function addBtnText(insult, game, textGroup, x, y){
+	var thisText;
+	thisText = game.add.text(x, y, insult.insult, { font: "16px Arial", fill: "#FFFFFF", wordWrap:true, wordWrapWidth: 275 });
+	textGroup.add(thisText);
+}
 // THIS IS THE FUNCTION YOU CALL IN THE NON-MODULE YOU DOOF!!!
 function showInsultOptions(insult1, insult2, insult3, game){
     //Show insults in UI then return whichever one they click on
+	
     var btn1 = game.add.button(2, game.world.height - 90, 'button', this.insultChosen, null, 1, 0, 2);
-    var btn2 = game.add.button(2, game.world.height - 180, 'button', this.insultChosen, null, 1, 0, 2);
+	var btn2 = game.add.button(2, game.world.height - 180, 'button', this.insultChosen, null, 1, 0, 2);
     var btn3 = game.add.button(2, game.world.height - 270, 'button', this.insultChosen, null, 1, 0, 2);
-    
+	
     btn1.insult = insult1;
     btn2.insult = insult2;
     btn3.insult = insult3;
 	
-	console.log(insult1);
+	var textGroup = game.add.group();
+	addBtnText(insult1, game, textGroup, 8, game.world.height - 86);
+	addBtnText(insult2, game, textGroup, 8, game.world.height - 176);
+	addBtnText(insult3, game, textGroup, 8, game.world.height - 266);
 }
 
 // Change this to wherever you want the loop to be in your game then copy block

@@ -10,7 +10,7 @@ DionysusWish.MainMenu.prototype = {
 		startBG.inputEnabled = true;
 		startBG.events.onInputDown.addOnce(this.startGame, this);
 		
-		startPrompt = this.add.text(this.world.centerX -85, this.world.centerY + 75, 'Press anything to start!', { font: "16px Arial", fill: "#FF4044" });
+		startPrompt = this.add.text(this.world.centerX -85, this.world.centerY + 75, 'Click anywhere to start!', { font: "16px Arial", fill: "#FF4044" });
 	},
 	
 	startGame: function(pointer){
