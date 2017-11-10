@@ -9,6 +9,8 @@
 		<script type="text/javascript" src="Preloader.js"></script>
 		<script type="text/javascript" src="MainMenu.js"></script>
 		<script type="text/javascript" src="Game.js"></script>
+        <script type="text/javascript" src="CoupletConflict.js"></script>
+        <script type="text/javascript" src="CoupletConflictModule.js"></script>
 		<style>
 			body{
 				padding: 0;
@@ -26,6 +28,7 @@
 				game.state.add('Preloader', DionysusWish.Preloader);
 				game.state.add('MainMenu', DionysusWish.MainMenu);
 				game.state.add('Game', DionysusWish.Game);
+                game.state.add('CoupletConflict', DionysusWish.CoupletConflict);
 				game.state.start('Boot');
 			}
 		</script>

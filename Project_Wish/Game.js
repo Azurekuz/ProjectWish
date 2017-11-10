@@ -4,6 +4,7 @@ DionysusWish.Game.prototype = {
 	create: function(){
 		
 		this.buildWorld();
+        this.state.start('CoupletConflict');
 	},
 	
 	buildWorld: function(){
