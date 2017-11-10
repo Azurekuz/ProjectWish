@@ -10,6 +10,7 @@ DionysusWish.Preloader.prototype = {
 		this.load.setPreloadSprite(this.preloadBar);
 		this.load.image('road', 'assets/images/backgrounds/roads.png');
 		this.load.image('athens', 'assets/images/backgrounds/athens.png');
+		this.load.spritesheet('button', 'assets/graphics/button.png', 280, 90, 3);
 	},
 	
 	create: function(){

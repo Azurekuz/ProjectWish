@@ -30,13 +30,15 @@ function insultChosen(a, b, c){
 // THIS IS THE FUNCTION YOU CALL IN THE NON-MODULE YOU DOOF!!!
 function showInsultOptions(insult1, insult2, insult3, game){
     //Show insults in UI then return whichever one they click on
-    var btn1 = game.add.button(50, 50, "Button", this.insultChosen);
-    var btn2 = game.add.button(50, 100, "Button", this.insultChosen);
-    var btn3 = game.add.button(50, 150, "Button", this.insultChosen);
+    var btn1 = game.add.button(2, game.world.height - 90, 'button', this.insultChosen, null, 1, 0, 2);
+    var btn2 = game.add.button(2, game.world.height - 180, 'button', this.insultChosen, null, 1, 0, 2);
+    var btn3 = game.add.button(2, game.world.height - 270, 'button', this.insultChosen, null, 1, 0, 2);
     
     btn1.insult = insult1;
     btn2.insult = insult2;
     btn3.insult = insult3;
+	
+	console.log(insult1);
 }
 
 // Change this to wherever you want the loop to be in your game then copy block
