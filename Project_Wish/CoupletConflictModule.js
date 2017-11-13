@@ -1,12 +1,17 @@
 var coupletConflictInsults = [
-            {insultValue: 0, responseValue: 100, insult: "Can we talk this all out somewhere a little more private?", response: "Shut up"},
-            {insultValue: 50, responseValue: 40, insult: "I think I've misplaced my thesaurus...", response: "You suck"},
-            {insultValue: 100, responseValue: 0, insult: "blah blah blah", response: "You smell like a fish"}
+            {insultValue: 1, responseValue: 3, insult: "Can we talk this all out somewhere a little more private?", response: "Away, and talk not; trouble us no more."},
+            {insultValue: 1, responseValue: 3, insult: "I think I've misplaced my thesaurus...", response: "Then marvel'st at my words, and hold thine tongue."},
+            {insultValue: 1, responseValue: 3, insult: "Hey! What's that over there?", response: "See better, fiend."},
+			{insultValue: 3, responseValue: 1, insult: "You're but a screaming shadow, a poor poet.", response: " Said by an idiot, thine words sound and fury."},
+			{insultValue: 3, responseValue: 1, insult: "Would you make two pies of our shameful heads?", response: "Um... prepare thine throat!—Wait, there's two of them..."},
+			{insultValue: 3, responseValue: 1, insult: "Well you, not I, are past your rhyming days.", response: "What? No, why don't you just... go far away?"}
 ];
 
-function sayInsult(insult){
+function sayInsult(insult, pointer){
     //Say insult UI here
-    for (i = 0; i < coupletConflictInsults.length; i++){
+	pointer.game.add.sprite(178, 0, 'ccBubble');
+	thisText = pointer.game.add.text(199, 6, insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+	/*for (i = 0; i < coupletConflictInsults.length; i++){
         if (coupletConflictInsults[i].insult == insult){
             if (coupletConflictInsults[i].insultValue > coupletConflictInsults[i].responseValue){
                 // Player wins
@@ -15,7 +20,7 @@ function sayInsult(insult){
                 // NPC Wins
             }
         }
-    }
+    }*/
 }
 
 function getRandomInsult(){
@@ -25,6 +30,7 @@ function getRandomInsult(){
 
 function insultChosen(a, b, c){
     console.log(this.insult.insult);
+	sayInsult(this.insult, b);
 }
 
 function addBtnText(insult, game, textGroup, x, y){
@@ -32,6 +38,12 @@ function addBtnText(insult, game, textGroup, x, y){
 	thisText = game.add.text(x, y, insult.insult, { font: "16px Arial", fill: "#FFFFFF", wordWrap:true, wordWrapWidth: 275 });
 	textGroup.add(thisText);
 }
+
+function displayPortrait(game){
+	game.add.sprite(2, game.world.height - 600, "portrait");
+	game.add.sprite(23, game.world.height - 604, "polyMC");
+}
+
 // THIS IS THE FUNCTION YOU CALL IN THE NON-MODULE YOU DOOF!!!
 function showInsultOptions(insult1, insult2, insult3, game){
     //Show insults in UI then return whichever one they click on
@@ -67,5 +79,6 @@ function getThreeDifferentInsults(game){
     var chosenInsult = showInsultOptions(coupletConflictInsults[insult1], coupletConflictInsults[insult2], coupletConflictInsults[insult3], game);
     console.log(insult1);
     console.log("Chosen insult: " + coupletConflictInsults[chosenInsult]);
-    //sayInsult(coupletConflictInsults[chosenInsult].insult);
+	displayPortrait(game);
+    //sayInsult(coupletConflictInsults[chosenInsult].insult, game);
 }
