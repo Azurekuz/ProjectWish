@@ -8,7 +8,6 @@ var coupletConflictInsults = [
 			{insultValue: 3, responseValue: 1, insult: "Would you make two pies of our shameful heads?", response: "Um... prepare thine throat!—Wait, there's two of them..."},
 			{insultValue: 3, responseValue: 1, insult: "Well you, not I, are past your rhyming days.", response: "What? No, why don't you just... go far away?"}
 ];
-
 DionysusWish.CoupletConflict.prototype = {
 	preload: function(){
         
@@ -27,8 +26,18 @@ DionysusWish.CoupletConflict.prototype = {
         }
     },
 	
-	
-
+	//Starts a new Couplet Conflict round
+	newRound: function(){
+		
+	},
+	//Opponent responds to Polykrites
+	sayResponse(){
+		
+	},
+	checkWinner(polyInsult, response){
+		
+	},
+	//Polykrites says something
 	sayInsult: function(insult, pointer){
 		//Say insult UI here
 		pointer.game.add.sprite(75, 175, 'resBubble');
@@ -44,18 +53,21 @@ DionysusWish.CoupletConflict.prototype = {
 			}
 		}*/
 	},
-
+	
+	//Grabs a random insult from the Poem Pouch
 	getRandomInsult: function(){
 		var randomInsultNumber = Math.floor((Math.random() * coupletConflictInsults.length));
 		return randomInsultNumber;
 	},
-
+	
+	//Returns the chosen insult
 	insultChosen: function(a, b, c){
 		console.log(this.insult.insult);
 		b.game.add.sprite(178, 0, 'ccBubble');
 		this.thisText = b.game.add.text(199, 6, this.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 		sayInsult(this.insult, b);
 	},
+	
 	addBtnText: function(insult, textGroup, x, y){
 		var thisText;
 		thisText = this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: "#FFFFFF", wordWrap:true, wordWrapWidth: 275 });
