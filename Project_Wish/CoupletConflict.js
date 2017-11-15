@@ -16,7 +16,7 @@ DionysusWish.CoupletConflict.prototype = {
 	
 	create: function(){
         this.game.add.image(0,0,'road');
-		this.game.add.image(350, 200, 'minotaur');
+		this.game.add.image(440, 260, 'minotaur');
 	},
    
     update: function(){
