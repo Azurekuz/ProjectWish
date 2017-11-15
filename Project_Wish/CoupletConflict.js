@@ -34,24 +34,25 @@ DionysusWish.CoupletConflict.prototype = {
 	sayResponse(){
 		
 	},
-	checkWinner(polyInsult, response){
-		
+	//Checks who won the round. Returns 0 if Polykrites wins, and 1 if the opponent wins.
+	returnWinner(polyInsult, response){
+		for (i = 0; i < coupletConflictInsults.length; i++){
+			if (coupletConflictInsults[i].insult == polyInsult){
+				if (coupletConflictInsults[i].insultValue > coupletConflictInsults[i].responseValue){
+					return 0;
+				}
+				else if (coupletConflictInsults[i].insultValue < coupletConflictInsults[i].responseValue){
+					return 1;
+				}
+			}
+		}
 	},
 	//Polykrites says something
 	sayInsult: function(insult, pointer){
 		//Say insult UI here
 		pointer.game.add.sprite(75, 175, 'resBubble');
 		thisText = pointer.game.add.text(96, 181, insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
-		/*for (i = 0; i < coupletConflictInsults.length; i++){
-			if (coupletConflictInsults[i].insult == insult){
-				if (coupletConflictInsults[i].insultValue > coupletConflictInsults[i].responseValue){
-					// Player wins
-				}
-				else if (coupletConflictInsults[i].insultValue < coupletConflictInsults[i].responseValue){
-					// NPC Wins
-				}
-			}
-		}*/
+		/**/
 	},
 	
 	//Grabs a random insult from the Poem Pouch
