@@ -31,6 +31,8 @@ DionysusWish.CoupletConflict.prototype = {
 
 	sayInsult: function(insult, pointer){
 		//Say insult UI here
+		pointer.game.add.sprite(75, 175, 'resBubble');
+		thisText = pointer.game.add.text(96, 181, insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 		/*for (i = 0; i < coupletConflictInsults.length; i++){
 			if (coupletConflictInsults[i].insult == insult){
 				if (coupletConflictInsults[i].insultValue > coupletConflictInsults[i].responseValue){
@@ -52,8 +54,8 @@ DionysusWish.CoupletConflict.prototype = {
 		console.log(this.insult.insult);
 		b.game.add.sprite(178, 0, 'ccBubble');
 		this.thisText = b.game.add.text(199, 6, this.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+		sayInsult(this.insult, b);
 	},
-
 	addBtnText: function(insult, textGroup, x, y){
 		var thisText;
 		thisText = this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: "#FFFFFF", wordWrap:true, wordWrapWidth: 275 });

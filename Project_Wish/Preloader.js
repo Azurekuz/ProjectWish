@@ -14,6 +14,7 @@ DionysusWish.Preloader.prototype = {
 		this.load.spritesheet('polyMC', 'assets/graphics/Polykrites.png', 123, 129, 1);
 		this.load.spritesheet('button', 'assets/graphics/button.png', 280, 90, 3);
 		this.load.image('ccBubble', 'assets/graphics/coupletConflictBubbleB.png');
+		this.load.image('resBubble', 'assets/graphics/responseBubble.png');
 		this.load.image('minotaur','assets/images/bull.png');
 	},
 	

@@ -1,16 +1,16 @@
-var coupletConflictInsults = [
+/*var coupletConflictInsults = [
             {insultValue: 1, responseValue: 3, insult: "Can we talk this all out somewhere a little more private?", response: "Away, and talk not; trouble us no more."},
             {insultValue: 1, responseValue: 3, insult: "I think I've misplaced my thesaurus...", response: "Then marvel'st at my words, and hold thine tongue."},
             {insultValue: 1, responseValue: 3, insult: "Hey! What's that over there?", response: "See better, fiend."},
 			{insultValue: 3, responseValue: 1, insult: "You're but a screaming shadow, a poor poet.", response: " Said by an idiot, thine words sound and fury."},
 			{insultValue: 3, responseValue: 1, insult: "Would you make two pies of our shameful heads?", response: "Um... prepare thine throat!—Wait, there's two of them..."},
 			{insultValue: 3, responseValue: 1, insult: "Well you, not I, are past your rhyming days.", response: "What? No, why don't you just... go far away?"}
-];
+];*/
 
 function sayInsult(insult, pointer){
     //Say insult UI here
-	pointer.game.add.sprite(178, 0, 'ccBubble');
-	thisText = pointer.game.add.text(199, 6, insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+	pointer.game.add.sprite(75, 175, 'resBubble');
+	thisText = pointer.game.add.text(96, 181, insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 	/*for (i = 0; i < coupletConflictInsults.length; i++){
         if (coupletConflictInsults[i].insult == insult){
             if (coupletConflictInsults[i].insultValue > coupletConflictInsults[i].responseValue){
@@ -23,8 +23,8 @@ function sayInsult(insult, pointer){
     }*/
 }
 
-function getRandomInsult(){
-    var randomInsultNumber = Math.floor((Math.random() * coupletConflictInsults.length));
+/*function getRandomInsult(){
+    //var randomInsultNumber = Math.floor((Math.random() * coupletConflictInsults.length));
     return randomInsultNumber;
 }
 
@@ -81,4 +81,4 @@ function getThreeDifferentInsults(game){
     console.log("Chosen insult: " + coupletConflictInsults[chosenInsult]);
 	displayPortrait(game);
     //sayInsult(coupletConflictInsults[chosenInsult].insult, game);
-}
+}*/
