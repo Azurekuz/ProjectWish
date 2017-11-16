@@ -9,7 +9,10 @@
 
 function sayInsult(insult, pointer){
     //Say insult UI here
+	console.log(insult.insult);
 	pointer.game.add.sprite(75, 175, 'resBubble');
+	pointer.game.add.sprite(178, 0, 'ccBubble');
+	thisText = pointer.game.add.text(199, 6, insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 	thisText = pointer.game.add.text(96, 181, insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 	/*for (i = 0; i < coupletConflictInsults.length; i++){
         if (coupletConflictInsults[i].insult == insult){

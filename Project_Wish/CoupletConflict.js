@@ -15,7 +15,10 @@ DionysusWish.CoupletConflict.prototype = {
 	
 	create: function(){
         this.game.add.image(0,0,'road');
-		this.game.add.image(440, 260, 'minotaur');
+		this.game.add.image(440, 260, 'posse');
+		this.btnGroup = this.game.add.group();
+		this.bubbleGroup = this.game.add.group();
+		this.textGroup = this.game.add.group();
 	},
    
     update: function(){
@@ -25,17 +28,26 @@ DionysusWish.CoupletConflict.prototype = {
             updateInsults = false;
         }
     },
-	
+	//Removes an insult from the pouch
+	removeInsult: function(insult){
+		var newArray = [];
+		for(i = 0; i < coupletConflictInsults.length; i++){
+			if(coupletConflictInsults[i].insult != insult.insult){
+				newArray.push(insult);
+			 }
+		}
+		coupletConflictInsults = newArray;
+	},
 	//Starts a new Couplet Conflict round
 	newRound: function(){
 		
 	},
 	//Opponent responds to Polykrites
-	sayResponse(){
+	sayResponse: function(){
 		
 	},
 	//Checks who won the round. Returns 0 if Polykrites wins, and 1 if the opponent wins.
-	returnWinner(polyInsult, response){
+	returnWinner: function(polyInsult, response){
 		for (i = 0; i < coupletConflictInsults.length; i++){
 			if (coupletConflictInsults[i].insult == polyInsult){
 				if (coupletConflictInsults[i].insultValue > coupletConflictInsults[i].responseValue){
@@ -50,8 +62,13 @@ DionysusWish.CoupletConflict.prototype = {
 	//Polykrites says something
 	sayInsult: function(insult, pointer){
 		//Say insult UI here
+		console.log(insult.insult);
 		pointer.game.add.sprite(75, 175, 'resBubble');
+		pointer.game.add.sprite(178, 0, 'ccBubble');
+		thisText = pointer.game.add.text(199, 6, insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+		this.textGroup.add(thisText);
 		thisText = pointer.game.add.text(96, 181, insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+		this.textGroup.add(thisText);
 		/**/
 	},
 	
@@ -63,16 +80,31 @@ DionysusWish.CoupletConflict.prototype = {
 	
 	//Returns the chosen insult
 	insultChosen: function(a, b, c){
-		console.log(this.insult.insult);
-		b.game.add.sprite(178, 0, 'ccBubble');
-		this.thisText = b.game.add.text(199, 6, this.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
-		sayInsult(this.insult, b);
+		console.log(b);
+		var thisBubble = b.game.add.sprite(178, 0, 'ccBubble');
+		thisBubble.dialogue = b.game.add.text(199, 6, a.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+		this.bubbleGroup.add(thisBubble);
+		b.game.time.events.add(Phaser.Timer.SECOND * 3, this.respond, this, this.bubbleGroup, b, a);
+		b.game.time.events.add(Phaser.Timer.SECOND * 8, this.dismissDialogue, this, this.bubbleGroup);
+		
+	},
+	respond: function(dialogueGroup, pointer, button){
+		var thisBubble = pointer.game.add.sprite(75, 175, 'resBubble');
+		thisBubble.dialogue = pointer.game.add.text(96, 181, button.insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+		this.bubbleGroup.add(thisBubble);
 	},
 	
-	addBtnText: function(insult, textGroup, x, y){
-		var thisText;
-		thisText = this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: "#FFFFFF", wordWrap:true, wordWrapWidth: 275 });
-		textGroup.add(thisText);
+	dismissDialogue: function(dialogueGroup){
+		while(dialogueGroup.children.length !=0){
+			dialogueGroup.children[0].dialogue.destroy();
+			dialogueGroup.children[0].destroy();
+		}
+		
+	},
+	addBtnText: function(insult, button, x, y){
+		button.btnText = this.game.add.group();
+		button.btnText.add(this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: "#FFFFFF", wordWrap:true, wordWrapWidth: 275 }));
+		console.log(button.btnText);
 	},
 
 	displayPortrait: function(){
@@ -84,18 +116,21 @@ DionysusWish.CoupletConflict.prototype = {
 	showInsultOptions: function(insult1, insult2, insult3){
 		//Show insults in UI then return whichever one they click on
 
-		var btn1 = this.game.add.button(2, this.game.world.height - 90, 'button', this.insultChosen, null, 1, 0, 2);
-		var btn2 = this.game.add.button(2, this.game.world.height - 180, 'button', this.insultChosen, null, 1, 0, 2);
-		var btn3 = this.game.add.button(2, this.game.world.height - 270, 'button', this.insultChosen, null, 1, 0, 2);
+		var btn1 = this.game.add.button(2, this.game.world.height - 90, 'button', this.insultChosen, this, 1, 0, 2);
+		var btn2 = this.game.add.button(2, this.game.world.height - 180, 'button', this.insultChosen, this, 1, 0, 2);
+		var btn3 = this.game.add.button(2, this.game.world.height - 270, 'button', this.insultChosen, this, 1, 0, 2);
 
 		btn1.insult = insult1;
 		btn2.insult = insult2;
 		btn3.insult = insult3;
+		
+		this.btnGroup.add(btn1);
+		this.btnGroup.add(btn2);
+		this.btnGroup.add(btn3);
 
-		var textGroup = this.game.add.group();
-		this.addBtnText(insult1, textGroup, 8, this.game.world.height - 86);
-		this.addBtnText(insult2, textGroup, 8, this.game.world.height - 176);
-		this.addBtnText(insult3, textGroup, 8, this.game.world.height - 266);
+		this.addBtnText(insult1, btn1, 8, this.game.world.height - 86);
+		this.addBtnText(insult2, btn2, 8, this.game.world.height - 176);
+		this.addBtnText(insult3, btn3, 8, this.game.world.height - 266);
 	},
 
 	// Change this to wherever you want the loop to be in your game then copy block
@@ -107,11 +142,12 @@ DionysusWish.CoupletConflict.prototype = {
 		while (insult1 == insult2){
 			insult2 = this.getRandomInsult();
 		}
-
+		//this.removeInsult(insult1);
+		//this.removeInsult(insult2);
 		while (insult3 == insult2 || insult3 == insult1){
 			insult3 = this.getRandomInsult();
 		}
-
+		console.log(coupletConflictInsults);
 		var chosenInsult = this.showInsultOptions(coupletConflictInsults[insult1], coupletConflictInsults[insult2], coupletConflictInsults[insult3], this.game);
 		console.log(insult1);
 		console.log("Chosen insult: " + coupletConflictInsults[chosenInsult]);

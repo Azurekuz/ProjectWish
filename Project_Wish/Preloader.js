@@ -16,6 +16,7 @@ DionysusWish.Preloader.prototype = {
 		this.load.image('ccBubble', 'assets/graphics/coupletConflictBubbleB.png');
 		this.load.image('resBubble', 'assets/graphics/responseBubble.png');
 		this.load.image('minotaur','assets/images/bull.png');
+		this.load.image('posse','assets/images/posse.png');
 	},
 	
 	create: function(){
