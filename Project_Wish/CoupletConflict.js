@@ -52,9 +52,9 @@ DionysusWish.CoupletConflict.prototype = {
 			this.game.controlsOn = true;
 		}
 		if(this.playerHP == 0){
-		   	this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU LOSE!", { font: "40px Times New Roman", fill: "#A0CFFF"});
+		   	this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU LOSE!", { font: "40px Times New Roman", fill: "#333333", fontWeight:900});
 		}else if(this.oppHP == 0){
-			this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU WIN!", { font: "40px Times New Roman", fill: "#A0CFFF"});
+			this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU WIN!", { font: "40px Times New Roman", fill: "#333333", fontWeight:900});
 		}
 	},
 	//Checks who won the round. Returns 0 if Polykrites wins, and 1 if the opponent wins.
