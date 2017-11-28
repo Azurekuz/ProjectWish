@@ -144,7 +144,13 @@ DionysusWish.CoupletConflict.prototype = {
 	},
 	addBtnText: function(insult, button, x, y){
 		button.btnText = this.game.add.group();
-		button.btnText.add(this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: "#FFFFFF", wordWrap:true, wordWrapWidth: 275 }));
+		var fillColor;
+		if(insult.insultValue == 1){
+			fillColor = '#FF636C';
+		}else if(insult.insultValue == 3){
+			fillColor = '#3CFF68';
+		}
+		button.btnText.add(this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: fillColor, wordWrap:true, wordWrapWidth: 275 }));
 	},
 
 	displayPortrait: function(){
