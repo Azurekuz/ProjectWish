@@ -19,6 +19,12 @@ DionysusWish.CoupletConflict.prototype = {
 	
 	create: function(){
         this.conflictBG = this.game.add.image(0,0,'athens');
+		this.audience = this.game.add.group();
+		this.audienceSprite = this.game.add.sprite(280, 320, 'audience');
+		this.audienceSprite.animations.add('wait',[0],false,1);
+		this.audienceSprite.animations.add('cheer', [1,2,3,4,5], true, 1);
+		this.audienceSprite.animations.add('boo', [6,7,8,9,10], true, 1);
+		this.audience.add(this.audienceSprite);
 		this.conflictOpponent = this.game.add.sprite(440, 260, 'posse');
 		this.btnGroup = this.game.add.group();
 		this.bubbleGroup = this.game.add.group();
@@ -46,15 +52,23 @@ DionysusWish.CoupletConflict.prototype = {
 		}
 		this.coupletConflictInsults = newArray;
 	},
+	audienceReact(isWon){
+		if(isWon){
+			this.audience.children[0].animations.play('cheer');
+		}else if(!isWon){
+			this.audience.children[0].animations.play('boo');
+		}
+	},
 	//Starts a new Couplet Conflict round
 	newRound: function(){
+		this.audience.children[0].animations.play('wait');
 		if(this.playerHP != 0 && this.oppHP != 0){
 			this.game.controlsOn = true;
 		}
 		if(this.playerHP == 0){
-		   	this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU LOSE!", { font: "40px Times New Roman", fill: "#333333", fontWeight:900});
+		   	this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU LOSE!", { font: "40px Times New Roman", fill: "#111111", fontWeight:900});
 		}else if(this.oppHP == 0){
-			this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU WIN!", { font: "40px Times New Roman", fill: "#333333", fontWeight:900});
+			this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU WIN!", { font: "40px Times New Roman", fill: "#111111", fontWeight:900});
 		}
 	},
 	//Checks who won the round. Returns 0 if Polykrites wins, and 1 if the opponent wins.
@@ -93,13 +107,8 @@ DionysusWish.CoupletConflict.prototype = {
 			this.bubbleGroup.add(thisBubble);
 			b.game.time.events.add(Phaser.Timer.SECOND * 3, this.respond, this, this.bubbleGroup, b, a);
 			b.game.time.events.add(Phaser.Timer.SECOND * 6, this.dismissDialogue, this, this.bubbleGroup, b, a);
-			if(this.isWinner(a)){
-				this.oppHP -= 1;
-			}else{
-				this.playerHP -= 1;
-			}
 			console.log("Our HP: " + this.playerHP + " | " + "Opponent HP: " + this.oppHP);
-			b.game.time.events.add(Phaser.Timer.SECOND * 8, this.newRound, this);
+			b.game.time.events.add(Phaser.Timer.SECOND * 11, this.newRound, this);
 		}
 	},
 	respond: function(dialogueGroup, pointer, button){
@@ -118,6 +127,13 @@ DionysusWish.CoupletConflict.prototype = {
 		this.removeInsult(button.insult);
 	},
 	dismissDialogue: function(dialogueGroup, pointer, button){
+		if(this.isWinner(button)){
+			this.audienceReact(true);
+			this.oppHP -= 1;
+		}else{
+			this.audienceReact(false);
+			this.playerHP -= 1;
+		}
 		while(dialogueGroup.children.length !=0){
 			dialogueGroup.children[0].dialogue.destroy();
 			dialogueGroup.children[0].destroy();
