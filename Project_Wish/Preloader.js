@@ -12,6 +12,7 @@ DionysusWish.Preloader.prototype = {
 		this.load.image('athens', 'assets/images/backgrounds/athens.png');
 		this.load.image('bridge', 'assets/images/backgrounds/bridge.png');
 		this.load.image('portrait', 'assets/graphics/portraitDisplayB.png');
+		this.load.image('portraitB','assets/graphics/portraitDisplay.png');
 		this.load.spritesheet('polyMC', 'assets/graphics/Polykrites.png', 123, 129, 1);
 		this.load.spritesheet('button', 'assets/graphics/button.png', 280, 68, 3);
 		this.load.image('ccBubble', 'assets/graphics/coupletConflictBubbleB.png');
@@ -19,6 +20,9 @@ DionysusWish.Preloader.prototype = {
 		this.load.image('minotaur','assets/images/bull.png');
 		this.load.image('posse','assets/images/posse.png');
 		this.load.spritesheet('audience', 'assets/images/gossipGroup.png', 172, 195, 11);
+		this.load.image('btnFilter','assets/graphics/button.png');
+		this.load.image('inventory','assets/graphics/inventory.png');
+		this.load.spritesheet('inventBtn','assets/graphics/InventoryButton.png', 71, 65);
 	},
 	
 	create: function(){

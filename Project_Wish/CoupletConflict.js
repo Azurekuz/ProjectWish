@@ -122,7 +122,6 @@ DionysusWish.CoupletConflict.prototype = {
 			console.log('IF TRUE');
 			button.insult = this.coupletConflictInsults[this.getRandomInsult()];
 			this.addBtnText(button.insult, button, button.x + 6, button.y+4);
-			
 		}
 		this.removeInsult(button.insult);
 	},
@@ -144,13 +143,7 @@ DionysusWish.CoupletConflict.prototype = {
 	},
 	addBtnText: function(insult, button, x, y){
 		button.btnText = this.game.add.group();
-		var fillColor;
-		if(insult.insultValue == 1){
-			fillColor = '#FF636C';
-		}else if(insult.insultValue == 3){
-			fillColor = '#3CFF68';
-		}
-		button.btnText.add(this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: fillColor, wordWrap:true, wordWrapWidth: 275 }));
+		button.btnText.add(this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: '#FFFFFF', wordWrap:true, wordWrapWidth: 275 }));
 	},
 
 	displayPortrait: function(){
