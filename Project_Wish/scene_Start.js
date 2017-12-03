@@ -1,4 +1,6 @@
-DionysusWish.scene_Start = function(game){};
+DionysusWish.scene_Start = function(game){
+	this.poemPouch = game.poemPouch
+};
 
 DionysusWish.scene_Start.prototype = {
 	create: function(){
@@ -10,6 +12,7 @@ DionysusWish.scene_Start.prototype = {
 		this.event = new Event(this.game, 'tester', "addObjInv", null, this.grapeItem, this.inventory);
 		this.grapeSceneItem = new sceneItem(this.game, "grape", 'scItem_Grape', 625, 375, this.event);
 		this.event.sceneObject = this.grapeSceneItem;
+		console.log(this.poemPouch);
 	},
 	update: function(){
 		

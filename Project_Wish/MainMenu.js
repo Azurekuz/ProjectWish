@@ -1,6 +1,8 @@
 DionysusWish.MainMenu = function(game){
 	this.startBG;
 	this.startPrompt;
+	this.game = game;
+	this.game.poemPouch = new PoemPouch(this.game);
 }
 
 DionysusWish.MainMenu.prototype = {

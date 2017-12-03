@@ -1,13 +1,6 @@
 DionysusWish.CoupletConflict = function(game){
 	this.updateInsults = true;
-	this.coupletConflictInsults = [
-            {insultValue: 1, responseValue: 3, insult: "Can we talk this all out somewhere a little more private?", response: "Away, and talk not; trouble us no more."},
-            {insultValue: 1, responseValue: 3, insult: "I think I've misplaced my thesaurus...", response: "Then marvel'st at my words, and hold thine tongue."},
-            {insultValue: 1, responseValue: 3, insult: "Hey! What's that over there?", response: "See better, fiend."},
-			{insultValue: 3, responseValue: 1, insult: "You're but a screaming shadow, a poor poet.", response: " Said by an idiot, thine words sound and fury."},
-			{insultValue: 3, responseValue: 1, insult: "Would you make two pies of our shameful heads?", response: "Um... prepare thine throat!—Wait, there's two of them..."},
-			{insultValue: 3, responseValue: 1, insult: "Well you, not I, are past your rhyming days.", response: "What? No, why don't you just... go far away?"}
-];
+	this.coupletConflictInsults = game.poemPouch.pouch;
 	this.conflictBG;
 	this.conflictOpponent;
 };
@@ -52,7 +45,7 @@ DionysusWish.CoupletConflict.prototype = {
 		}
 		this.coupletConflictInsults = newArray;
 	},
-	audienceReact(isWon){
+	audienceReact: function(isWon){
 		if(isWon){
 			this.audience.children[0].animations.play('cheer');
 		}else if(!isWon){
@@ -61,6 +54,7 @@ DionysusWish.CoupletConflict.prototype = {
 	},
 	//Starts a new Couplet Conflict round
 	newRound: function(){
+		console.log("Our HP: " + this.playerHP + " | " + "Opponent HP: " + this.oppHP);
 		this.audience.children[0].animations.play('wait');
 		if(this.playerHP != 0 && this.oppHP != 0){
 			this.game.controlsOn = true;
@@ -107,7 +101,6 @@ DionysusWish.CoupletConflict.prototype = {
 			this.bubbleGroup.add(thisBubble);
 			b.game.time.events.add(Phaser.Timer.SECOND * 3, this.respond, this, this.bubbleGroup, b, a);
 			b.game.time.events.add(Phaser.Timer.SECOND * 6, this.dismissDialogue, this, this.bubbleGroup, b, a);
-			console.log("Our HP: " + this.playerHP + " | " + "Opponent HP: " + this.oppHP);
 			b.game.time.events.add(Phaser.Timer.SECOND * 11, this.newRound, this);
 		}
 	},
@@ -116,7 +109,7 @@ DionysusWish.CoupletConflict.prototype = {
 		thisBubble.dialogue = pointer.game.add.text(96, 181, button.insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 		this.bubbleGroup.add(thisBubble);
 	},
-	replaceInsult(button){
+	replaceInsult: function(button){
 		console.log(this.coupletConflictInsults);
 		if(this.coupletConflictInsults.length != 0){
 			console.log('IF TRUE');
