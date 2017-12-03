@@ -24,6 +24,7 @@ DionysusWish.Preloader.prototype = {
 		this.load.image('inventory','assets/graphics/inventory.png');
 		this.load.spritesheet('inventBtn','assets/graphics/InventoryButton.png', 71, 65);
 		this.load.spritesheet('item_Grape','assets/images/items/grape.png', 69, 61);
+		this.load.spritesheet('scItem_Grape','assets/images/items/scItem_Grape.png', 52, 46);
 	},
 	
 	create: function(){

@@ -16,3 +16,7 @@ Item.prototype.deselect = function(){
 		this.isSelected = false;
 	}
 }
+
+Item.prototype.interact = function(){
+	
+}

@@ -1,18 +1,20 @@
-function sceneItem(gameContext, itemID, sprite){
+function sceneItem(gameContext, itemID, sprite, x, y, eventObj){
 	this.itemID = itemID;
+	this.xLoc = x;
+	this.yLoc = y;
 	this.game = gameContext;
-	this.isSelected = false;
-	this.itemSprite = sprite;
+	this.itemSprite = this.game.add.button(this.xLoc, this.yLoc, sprite, this.interact, this, 1, 0, 2);
+	this.triggeredEvent = eventObj;
 }
 
-sceneItem.prototype.select = function(){
-	if(this.isSelected != true){
-		this.isSelected = true;
-	}
+sceneItem.prototype.interact= function(){
+	this.triggeredEvent.occur();
 }
 
-sceneItem.prototype.deselect = function(){
-	if(this.isSelected == true){
-		this.isSelected = false;
-	}
+sceneItem.prototype.display= function(){
+	
+}
+
+sceneItem.prototype.remove= function(){
+	this.itemSprite.destroy();
 }
