@@ -1,4 +1,4 @@
-function Event(gameContext, eventID, eventType, scItem, item, inventory){
+function Event(gameContext, eventID, eventType, scItem, item, inventory, keyItem){
 	this.eventID = eventID;
 	this.game = gameContext;
 	this.eventType = eventType;
@@ -6,13 +6,23 @@ function Event(gameContext, eventID, eventType, scItem, item, inventory){
 	this.sceneObject = scItem || null;
 	this.item = item || null;
 	this.inventory = inventory || null;
+	this.key = keyItem || null;
 }
 
 Event.prototype.occur = function(){
-	//TO DO
 	if(this.eventType == "addObjInv" && this.item != null){
-		console.log("Interacted!");
 		this.sceneObject.remove();
 		this.inventory.addItem(this.item);
-	}
+		console.log(this.inventory);
+	}/*else if(this.eventType == "lock" && this.inventory.selectedItem != null){
+		if(this.item.itemID == this.inventory.selectedItem.itemID){
+			console.log("Unlocked!");
+			this.addEvent.occur();
+			console.log(this.inventory);
+		}else if(this.item.itemID != this.inventory.selectedItem.itemID || this.inventory.selectedItem == null){
+			console.log("Incorrect item!");
+		}
+	}else if(this.eventType == "lock" && this.inventory.selectedItem == null){
+		console.log("Incorrect item!");	 
+	}*/
 }

@@ -17,6 +17,6 @@ Item.prototype.deselect = function(){
 	}
 }
 
-Item.prototype.interact = function(){
-	
+Item.prototype.interact = function(item){
+	console.log(this.itemID + " -> " + item.itemID + " Interaction!");
 }

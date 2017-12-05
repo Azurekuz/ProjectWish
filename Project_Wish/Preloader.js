@@ -23,8 +23,10 @@ DionysusWish.Preloader.prototype = {
 		this.load.image('btnFilter','assets/graphics/button.png');
 		this.load.image('inventory','assets/graphics/inventory.png');
 		this.load.spritesheet('inventBtn','assets/graphics/InventoryButton.png', 71, 65);
-		this.load.spritesheet('item_Grape','assets/images/items/grape.png', 69, 61);
-		this.load.spritesheet('scItem_Grape','assets/images/items/scItem_Grape.png', 52, 46);
+		this.load.spritesheet('item_Grape','assets/images/items/grape.png', 69, 61, 2);
+		this.load.spritesheet('scItem_Grape','assets/images/items/scItem_Grape.png', 30, 27, 3);
+		this.load.spritesheet('scItem_Bowl', 'assets/images/items/scItem_Bowl.png', 29, 20, 3);
+		this.load.spritesheet('item_Bowl', 'assets/images/items/bowl.png', 69, 61, 2);
 	},
 	
 	create: function(){

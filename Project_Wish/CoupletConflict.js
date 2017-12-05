@@ -136,7 +136,7 @@ DionysusWish.CoupletConflict.prototype = {
 	},
 	addBtnText: function(insult, button, x, y){
 		button.btnText = this.game.add.group();
-		button.btnText.add(this.game.add.text(x, y, insult.insult, { font: "16px Arial", fill: '#FFFFFF', wordWrap:true, wordWrapWidth: 275 }));
+		button.btnText.add(this.game.add.text(x, y, insult.insult, { font: "16px Papyrus", fill: '#FFFFFF', wordWrap:true, wordWrapWidth: 275 }));
 	},
 
 	displayPortrait: function(){
