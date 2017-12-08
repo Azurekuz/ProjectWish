@@ -13,10 +13,10 @@ Inventory.prototype.showInventory = function(){
 	this.inventoryButtons = this.context.add.group();
 	this.displayedItems = this.context.add.group();
 	this.addButtons();
+	this.displayItems();
 }
 
 Inventory.prototype.addButtons = function(){
-	console.log("Adding buttons?");
 	this.btnIndex = 0;
 	for(this.curY = this.yLoc + 4; this.curY < (this.yLoc + 140); this.curY = this.curY + 68){
 		for(this.curX = this.xLoc + 5; this.curX < (this.xLoc + 311); this.curX = this.curX + 77){
@@ -37,7 +37,6 @@ Inventory.prototype.initializeInventory = function(){
 Inventory.prototype.addItem= function(item){
 	this.curItem = 0;
 	while(this.curItem < this.inventorySize && this.itemAry[this.curItem] != null){
-		console.log("Inventory Index: " + this.curItem);
 		if(this.curItem == this.inventorySize - 1 && this.itemAry[this.curItem] != null){
 			console.log("ERROR: INVENTORY IS FULL!");
 		}
@@ -46,6 +45,13 @@ Inventory.prototype.addItem= function(item){
 	if(this.itemAry[this.curItem] == null){
 		this.itemAry[this.curItem] = item
 	}
+	
+	for(this.i = 0; this.i < this.context.flags.length; this.i++){
+		if(this.context.flags[this.i].flagID == item.itemID){
+			this.context.flags[this.i].flag();
+		}
+	}
+	
 	this.displayItems();
 }
 
@@ -55,7 +61,6 @@ Inventory.prototype.selectItem= function(button, context, someBool){
 		this.selectedItem = this.itemAry[button.index];
 		this.selectedItem.index = button.index;
 		this.displayedItems.children[button.index].animations.frame = 1;
-		console.log(this);
 	}else if(this.selectedItem != null && this.itemAry[button.index] == this.selectedItem){
 		this.deselectItem(button, context, someBool);
 		this.selectedItem = null;
@@ -91,13 +96,11 @@ Inventory.prototype.findButton = function(itemID){
 Inventory.prototype.displayItems = function(){
 	this.curItem = 0;
 	while(this.displayedItems.children.length > 0){
-		console.log("Destroyed: " + this.itemAry[this.index] + " sprite");
 		this.displayedItems.children[0].destroy();
 	}
 	for(this.curY = this.yLoc + 4; this.curY < (this.yLoc + 140); this.curY = this.curY + 68){
 		for(this.curX = this.xLoc + 7; this.curX < (this.xLoc + 311); this.curX = this.curX + 77){
 			if(this.itemAry[this.curItem] != null){
-				console.log("Added: " + this.itemAry[this.curItem]);
 				this.curSprite = this.context.add.sprite(this.curX, this.curY, this.itemAry[this.curItem].itemSprite);
 				this.displayedItems.add(this.curSprite);
 			}
@@ -105,3 +108,12 @@ Inventory.prototype.displayItems = function(){
 		}
 	}
 }
+
+Inventory.prototype.flagFind= function(key, game, flagAry){
+		for(this.i = 0; this.i < flagAry.length; this.i++){
+			if(flagAry[this.i].flagID == key){
+				return flagAry[this.i].flagged;
+			}
+		}
+		return false;
+	}

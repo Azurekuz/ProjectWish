@@ -27,6 +27,11 @@ DionysusWish.Preloader.prototype = {
 		this.load.spritesheet('scItem_Grape','assets/images/items/scItem_Grape.png', 30, 27, 3);
 		this.load.spritesheet('scItem_Bowl', 'assets/images/items/scItem_Bowl.png', 29, 20, 3);
 		this.load.spritesheet('item_Bowl', 'assets/images/items/bowl.png', 69, 61, 2);
+		this.load.spritesheet('sceneChange','assets/graphics/sceneChanger.png', 38, 51, 3);
+		this.load.audio('conflictTheme', 'assets/music/cybordNinja.mp3');
+		this.load.audio('overworldTheme', 'assets/music/Overworld.mp3');
+		this.load.audio('clopBTN', 'assets/sfx/clopBTN.mp3');
+		this.load.audio('3SecCheer', 'assets/sfx/3sec_cheer.mp3');
 	},
 	
 	create: function(){

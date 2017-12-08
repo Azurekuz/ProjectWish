@@ -5,26 +5,49 @@ DionysusWish.scene_Start = function(game){
 DionysusWish.scene_Start.prototype = {
 	create: function(){
 		this.sceneBG = this.add.image(0,0, 'bridge');
+		
+		if(this.game.BGMusic == null){
+			this.game.BGMusic = this.game.add.audio('overworldTheme');
+			this.game.BGMusic.loop = true;
+			this.game.BGMusic.volume = 0.05;
+			this.game.BGMusic.play();
+		}
+		if(this.game.BGMusic.name != 'overworldTheme'){
+			this.game.BGMusic.stop();
+			this.game.BGMusic = this.game.add.audio('overworldTheme');
+			this.game.BGMusic.loop = true;
+			this.game.BGMusic.volume = 0.1;
+			this.game.BGMusic.play();
+		}
+		
 		this.portraitDisplay = this.add.sprite(313, this.game.world.height - 137, 'portraitB');
 		this.charHead = this.game.add.sprite(335, this.game.world.height - 130, "polyMC");
 		this.inventory = this.game.inventory;
 		this.inventory.showInventory();
 		
-		this.wrongGrape = new Item(this.game, 'wrongGrape', 'item_Grape'); 
-		this.event = new Event(this.game, 'getGrape', "addObjInv", null, this.wrongGrape, this.inventory);
-		this.curSceneItem = new sceneItem(this.game, "wrongGrape", 'scItem_Grape', 575, 375, this.event, this.inventory);
-		this.event.sceneObject = this.curSceneItem;
+		this.testChange = new sceneChange(this.game, "scene_Test", 55, 320);
+		this.coupletChange = new sceneChange(this.game, "CoupletConflict", 655, 325);
 		
-		this.grape = new Item(this.game, 'grape', 'item_Grape'); 
-		this.event = new Event(this.game, 'getGrape', "addObjInv", null, this.grape, this.inventory);
-		this.curSceneItem = new sceneItem(this.game, "grape", 'scItem_Grape', 500, 400, this.event, this.inventory);
-		this.event.sceneObject = this.curSceneItem;
+		if(!this.inventory.flagFind("wrongGrape", this.game, this.game.flags)){
+			this.wrongGrape = new Item(this.game, 'wrongGrape', 'item_Grape'); 
+			this.event = new Event(this.game, 'getGrape', "addObjInv", null, this.wrongGrape, this.inventory);
+			this.curSceneItem = new sceneItem(this.game, "wrongGrape", 'scItem_Grape', 575, 375, this.event, this.inventory);
+			this.event.sceneObject = this.curSceneItem;
+		}
 		
-		this.bowl =  new Item(this.game, 'bowl', 'item_Bowl'); 
-		this.event = new Event(this.game, 'getBowl', "lock", null, this.bowl, this.inventory, this.grape);
-		this.curSceneItem = new sceneItem(this.game, "bowl", 'scItem_Bowl', 115, 415, this.event, this.inventory);
-		this.event.sceneObject = this.curSceneItem;
+		if(!this.inventory.flagFind("grape", this.game, this.game.flags)){
+			this.grape = new Item(this.game, 'grape', 'item_Grape'); 
+			this.event = new Event(this.game, 'getGrape', "addObjInv", null, this.grape, this.inventory);
+			this.curSceneItem = new sceneItem(this.game, "grape", 'scItem_Grape', 500, 400, this.event, this.inventory);
+			this.event.sceneObject = this.curSceneItem;
+		}
 		
+		if(!this.inventory.flagFind("bowl", this.game, this.game.flags)){
+			this.bowl =  new Item(this.game, 'bowl', 'item_Bowl'); 
+			this.event = new Event(this.game, 'getBowl', "lock", null, this.bowl, this.inventory, this.grape);
+			this.curSceneItem = new sceneItem(this.game, "bowl", 'scItem_Bowl', 115, 415, this.event, this.inventory);
+			this.event.sceneObject = this.curSceneItem;
+		}
 		/*this.curItemA = new Item(this.game, 'grape', 'item_Grape'); 
 		this.event = new Event(this.game, 'getGrape', "addObjInv", null, this.curItemA, this.inventory);
 		this.curSceneItem = new sceneItem(this.game, "grape", 'scItem_Grape', 625, 375, this.event);
@@ -37,8 +60,6 @@ DionysusWish.scene_Start.prototype = {
 		this.curSceneItem = new sceneItem(this.game, "bowl", 'scItem_Bowl', 105, 400, this.eventC, this.inventory);
 		this.eventB.sceneObject = this.curSceneItem;
 		this.eventC.addEvent = this.eventB;*/
-		
-		console.log(this.inventory);
 	},
 	update: function(){
 		

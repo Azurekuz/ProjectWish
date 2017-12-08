@@ -13,7 +13,6 @@ Event.prototype.occur = function(){
 	if(this.eventType == "addObjInv" && this.item != null){
 		this.sceneObject.remove();
 		this.inventory.addItem(this.item);
-		console.log(this.inventory);
 	}/*else if(this.eventType == "lock" && this.inventory.selectedItem != null){
 		if(this.item.itemID == this.inventory.selectedItem.itemID){
 			console.log("Unlocked!");
