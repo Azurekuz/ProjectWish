@@ -70,6 +70,7 @@ DionysusWish.CoupletConflict.prototype = {
 		}
 		this.coupletConflictInsults = newArray;
 	},
+	
 	audienceReact: function(isWon){
 		if(isWon){
 			this.audience.children[0].animations.play('cheer');
@@ -89,14 +90,30 @@ DionysusWish.CoupletConflict.prototype = {
 				this.game.controlsOn = true; 
 			}else{
 				console.log("Regular mode!");
-				this.game.controlsOn = true; 
+				this.game.controlsOn = true;
+				for(this.i = 0; this.i < this.btnGroup.children.length; this.i++){
+					this.btnGroup.children[this.i].insult = undefined;
+					this.btnGroup.children[this.i].insult = this.btnSaver[this.i];
+					while(this.btnGroup.children[this.i].btnText.children.length != 0){
+						this.btnGroup.children[this.i].btnText.children[0].destroy();   
+					}
+					if(this.btnGroup.children[this.i].insult != undefined){
+						this.addBtnText(this.btnGroup.children[this.i].insult, this.btnGroup.children[this.i], this.btnGroup.children[this.i].x + 6, this.btnGroup.children[this.i].y + 4);
+					}
+				}
+				while(this.btnSaver.length != 0){
+					this.btnSaver = [];
+					console.log("Deleting saved buttons...");
+				}
 			}
 		}
 		if(this.playerHP == 0){
 		   	this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU LOSE!", { font: "40px Times New Roman", fill: "#111111", fontWeight:900});
+			console.log("You lost!");
 			this.state.start("scene_Start");
 		}else if(this.oppHP == 0){
 			this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU WIN!", { font: "40px Times New Roman", fill: "#111111", fontWeight:900});
+			console.log("You won!");
 			this.state.start("scene_Start");
 		}
 	},
@@ -104,9 +121,10 @@ DionysusWish.CoupletConflict.prototype = {
 	comebackMode: function(){
 		while(this.btnSaver.length != 0){
 			this.btnSaver.pop();
+			console.log("Popping saved buttons...");
 		}
 		for(this.i = 0; this.i < this.btnGroup.children.length; this.i++){
-			this.btnSaver.push(this.btnGroup.children[this.i]);
+			this.btnSaver.push(this.btnGroup.children[this.i].insult);
 		}
 		console.log(this.btnSaver);
 		console.log(this.comeBacks);
@@ -115,7 +133,6 @@ DionysusWish.CoupletConflict.prototype = {
 			if(this.comeBacks[this.i].response != null){
 			   this.comebacksLeft = true;
 				this.i = this.comeBacks.length;
-				console.log("Wow! There's something left!")
 			}
 		}
 		
@@ -123,6 +140,7 @@ DionysusWish.CoupletConflict.prototype = {
 			this.randomComeback = this.comeBacks[this.getRandomComeback()];
 			while(this.randomComeback.response == null){
 				this.randomComeback = this.comeBacks[this.getRandomComeback()];
+				console.log("Generating current comeback...");
 			}
 			this.ranBtnIndex = Math.floor((Math.random() * this.btnGroup.children.length));
 			this.btnGroup.children[this.ranBtnIndex].insult = this.randomComeback;
@@ -132,19 +150,27 @@ DionysusWish.CoupletConflict.prototype = {
 			for(this.i = 0; this.i < this.btnGroup.children.length; this.i++){
 				if(this.i != this.ranBtnIndex){
 				   this.otherIndexes.push(this.i);
+					this.btnGroup.children[this.i].insult =this.comeBacks[this.getRandomComeback()]; 
 				}
 			}
-			console.log(this.otherIndexes);
-			console.log(this.btnGroup.children);
+			while(this.btnGroup.children[this.otherIndexes[0]].insult == this.btnGroup.children[this.otherIndexes[1]].insult || this.btnGroup.children[this.otherIndexes[0]].insult == this.btnGroup.children[this.ranBtnIndex].insult || this.btnGroup.children[this.otherIndexes[1]].insult == this.btnGroup.children[this.ranBtnIndex].insult || this.btnGroup.children[this.otherIndexes[0]].insult.response != null || this.btnGroup.children[this.otherIndexes[1]].insult.response != null){
+				this.btnGroup.children[this.otherIndexes[0]].insult =this.comeBacks[this.getRandomComeback()]; 
+				this.btnGroup.children[this.otherIndexes[1]].insult =this.comeBacks[this.getRandomComeback()];
+				console.log("Generating other buttons...");
+			}
+			this.addBtnText(this.btnGroup.children[this.otherIndexes[0]].insult, this.btnGroup.children[this.otherIndexes[0]], this.btnGroup.children[this.otherIndexes[0]].x + 6, this.btnGroup.children[this.otherIndexes[0]].y +4);
+			this.addBtnText(this.btnGroup.children[this.otherIndexes[1]].insult, this.btnGroup.children[this.otherIndexes[1]], this.btnGroup.children[this.otherIndexes[1]].x + 6, this.btnGroup.children[this.otherIndexes[1]].y +4);
+			var thisBubble = this.game.add.sprite(75, 175, 'resBubble');
+			thisBubble.dialogue = this.game.add.text(96, 181, this.btnGroup.children[this.ranBtnIndex].insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+			this.bubbleGroup.add(thisBubble);
 		}
 	},
 	
 	//Checks who won the round. Returns 0 if Polykrites wins, and 1 if the opponent wins.
 	isWinner: function(button){
-			if (button.insult.insultVal > button.insult.responseVal){
+			if (button.insult.insultVal > button.insult.responseVal || button.insult.insultVal == button.insult.responseVal){
 				return true;
-			}
-			else if (button.insult.insultVal < button.insult.responseVal){
+			}else if (button.insult.insultVal < button.insult.responseVal){
 				return false;
 			}
 	},
@@ -173,22 +199,35 @@ DionysusWish.CoupletConflict.prototype = {
 	
 	//Returns the chosen insult
 	insultChosen: function(a, b, c){
-		this.btnSFX.play();
-		if(b.game.controlsOn && a.insult != undefined){
-			b.game.controlsOn = false;
-			var thisBubble = b.game.add.sprite(178, 0, 'ccBubble');
-			thisBubble.dialogue = b.game.add.text(203, 6, a.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
-			this.bubbleGroup.add(thisBubble);
-			b.game.time.events.add(Phaser.Timer.SECOND * 3, this.respond, this, this.bubbleGroup, b, a);
-			b.game.time.events.add(Phaser.Timer.SECOND * 6, this.dismissDialogue, this, this.bubbleGroup, b, a);
-			b.game.time.events.add(Phaser.Timer.SECOND * 11, this.newRound, this);
+		if(this.round % 2 == 1 || this.comebacksLeft == false){
+			this.btnSFX.play();
+			if(b.game.controlsOn && a.insult != undefined){
+				b.game.controlsOn = false;
+				var thisBubble = b.game.add.sprite(178, 0, 'ccBubble');
+				thisBubble.dialogue = b.game.add.text(203, 6, a.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+				this.bubbleGroup.add(thisBubble);
+				b.game.time.events.add(Phaser.Timer.SECOND * 3, this.respond, this, this.bubbleGroup, b, a);
+				b.game.time.events.add(Phaser.Timer.SECOND * 6, this.dismissDialogue, this, this.bubbleGroup, b, a);
+				b.game.time.events.add(Phaser.Timer.SECOND * 11, this.newRound, this);
+			}
+		}else if(this.round % 2 == 0 && this.comebacksLeft == true){
+			if(b.game.controlsOn && a.insult != undefined){
+				b.game.controlsOn = false;
+				var thisBubble = b.game.add.sprite(178, 0, 'ccBubble');
+				thisBubble.dialogue = b.game.add.text(203, 6, a.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
+				this.bubbleGroup.add(thisBubble);
+				b.game.time.events.add(Phaser.Timer.SECOND * 8, this.dismissDialogue, this, this.bubbleGroup, b, a);
+				b.game.time.events.add(Phaser.Timer.SECOND * 13, this.newRound, this);
+			}
 		}
 	},
+	
 	respond: function(dialogueGroup, pointer, button){
 		var thisBubble = pointer.game.add.sprite(75, 175, 'resBubble');
 		thisBubble.dialogue = pointer.game.add.text(96, 181, button.insult.response, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 		this.bubbleGroup.add(thisBubble);
 	},
+	
 	replaceInsult: function(button){
 		if(this.coupletConflictInsults.length != 0){
 			button.insult = this.coupletConflictInsults[this.getRandomInsult()];
@@ -196,11 +235,15 @@ DionysusWish.CoupletConflict.prototype = {
 		}
 		this.removeInsult(button.insult);
 	},
+	
 	dismissDialogue: function(dialogueGroup, pointer, button){
-		if(this.isWinner(button)){
+		if(this.isWinner(button) && this.round % 2 == 1 || this.comebacksLeft == false){
 			this.audienceReact(true);
 			this.audCheerSFX.play();
 			this.oppHP -= 1;
+		}else if(this.isWinner(button) && this.round % 2 == 0 && this.comebacksLeft == true){
+			this.audienceReact(true);
+			this.audCheerSFX.play(); 
 		}else{
 			this.audienceReact(false);
 			this.playerHP -= 1;
@@ -208,11 +251,17 @@ DionysusWish.CoupletConflict.prototype = {
 		while(dialogueGroup.children.length !=0){
 			dialogueGroup.children[0].dialogue.destroy();
 			dialogueGroup.children[0].destroy();
+			console.log("Dismissing dialogue...");
 		}
-		button.btnText.destroy();
-		delete button.insult;
+		while(button.btnText.children.length != 0){
+			button.btnText.children[0].destroy();
+			console.log("Destroying button text...");
+		}
+		
+		button.insult =null;
 		this.replaceInsult(button);
 	},
+	
 	addBtnText: function(insult, button, x, y){
 		if(button.btnText == null){
 			button.btnText = this.game.add.group();
@@ -260,11 +309,13 @@ DionysusWish.CoupletConflict.prototype = {
 		var insult3 = this.getRandomInsult();
 		while (insult1 == insult2){
 			insult2 = this.getRandomInsult();
+			console.log("Generating second insult...");
 		}
 		//this.removeInsult(insult1);
 		//this.removeInsult(insult2);
 		while (insult3 == insult2 || insult3 == insult1){
 			insult3 = this.getRandomInsult();
+			console.log("Generating third insult...");
 		}
 		
 		this.showInsultOptions(this.coupletConflictInsults[insult1], this.coupletConflictInsults[insult2], this.coupletConflictInsults[insult3], this.game);
