@@ -20,11 +20,13 @@ DionysusWish.MainMenu.prototype = {
 	
 	flagInitializer: function(flagAry){
 		flagAry.push(new Flag("grape", "addObjInv"));
-		flagAry.push(new Flag("wrongGrape", "addObjInv"));
+		flagAry.push(new Flag("key", "addObjInv"));
 		flagAry.push(new Flag("bowl", "addObjInv"));
+		flagAry.push(new Flag("pegasusInit", "addObjInv"));
+		flagAry.push(new Flag("pegasusQuest", "addObjInv"));
 	},
 	
 	startGame: function(pointer){
-		this.state.start('scene_Start');
+		this.state.start('CoupletConflict');
 	}
 }

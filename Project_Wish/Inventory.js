@@ -110,10 +110,22 @@ Inventory.prototype.displayItems = function(){
 }
 
 Inventory.prototype.flagFind= function(key, game, flagAry){
-		for(this.i = 0; this.i < flagAry.length; this.i++){
-			if(flagAry[this.i].flagID == key){
-				return flagAry[this.i].flagged;
-			}
+	for(this.i = 0; this.i < flagAry.length; this.i++){
+		if(flagAry[this.i].flagID == key){
+			return flagAry[this.i].flagged;
 		}
-		return false;
 	}
+	return false;
+}
+
+Inventory.prototype.removeItem=function(itemID){
+	var newArray = [];
+	for(this.i = 0; this.i < this.itemAry.length; this.i++){
+		console.log(this.itemAry[this.i]);
+		if(this.itemAry[this.i] != null && this.itemAry[this.i].itemID != itemID){
+		   newArray.push(this.itemAry[this.i]);
+		}
+	}
+	this.itemAry = newArray;
+	this.displayItems();
+}

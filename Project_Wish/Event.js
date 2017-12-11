@@ -7,11 +7,14 @@ function Event(gameContext, eventID, eventType, scItem, item, inventory, keyItem
 	this.item = item || null;
 	this.inventory = inventory || null;
 	this.key = keyItem || null;
+	this.addEvent = null;
 }
 
 Event.prototype.occur = function(){
 	if(this.eventType == "addObjInv" && this.item != null){
-		this.sceneObject.remove();
+		if(this.sceneObject != null){
+			this.sceneObject.remove();
+		}
 		this.inventory.addItem(this.item);
 	}/*else if(this.eventType == "lock" && this.inventory.selectedItem != null){
 		if(this.item.itemID == this.inventory.selectedItem.itemID){

@@ -50,6 +50,7 @@ DionysusWish.CoupletConflict.prototype = {
 		
 		this.btnSFX= this.game.add.audio('clopBTN');
 		this.audCheerSFX = this.game.add.audio('3SecCheer');
+		this.audBooSFX = this.game.add.audio('3SecBoo');
 	},
    
     update: function(){
@@ -69,6 +70,16 @@ DionysusWish.CoupletConflict.prototype = {
 			 }
 		}
 		this.coupletConflictInsults = newArray;
+	},
+	
+	removeComeback: function(insult){
+		var newArray = [];
+		for(i = 0; i < this.comeBacks.length; i++){
+			if(!(this.comeBacks[i].insult == insult.insult)){
+				newArray.push(this.comeBacks[i]);
+			 }
+		}
+		this.comeBacks = newArray;
 	},
 	
 	audienceReact: function(isWon){
@@ -114,7 +125,7 @@ DionysusWish.CoupletConflict.prototype = {
 		}else if(this.oppHP == 0){
 			this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU WIN!", { font: "40px Times New Roman", fill: "#111111", fontWeight:900});
 			console.log("You won!");
-			this.state.start("scene_Start");
+			this.state.start("ThankYou");
 		}
 	},
 	
@@ -217,7 +228,7 @@ DionysusWish.CoupletConflict.prototype = {
 				thisBubble.dialogue = b.game.add.text(203, 6, a.insult.insult, { font: "20px Times New Roman", fill: "#000000", wordWrap:true, wordWrapWidth: 350 });
 				this.bubbleGroup.add(thisBubble);
 				b.game.time.events.add(Phaser.Timer.SECOND * 8, this.dismissDialogue, this, this.bubbleGroup, b, a);
-				b.game.time.events.add(Phaser.Timer.SECOND * 13, this.newRound, this);
+				b.game.time.events.add(Phaser.Timer.SECOND * 11, this.newRound, this);
 			}
 		}
 	},
@@ -246,6 +257,7 @@ DionysusWish.CoupletConflict.prototype = {
 			this.audCheerSFX.play(); 
 		}else{
 			this.audienceReact(false);
+			this.audBooSFX.play();
 			this.playerHP -= 1;
 		}
 		while(dialogueGroup.children.length !=0){
@@ -257,7 +269,9 @@ DionysusWish.CoupletConflict.prototype = {
 			button.btnText.children[0].destroy();
 			console.log("Destroying button text...");
 		}
-		
+		if(this.round % 2 == 0 && this.comebacksLeft){
+			this.removeComeback(button.insult);
+		}
 		button.insult =null;
 		this.replaceInsult(button);
 	},
