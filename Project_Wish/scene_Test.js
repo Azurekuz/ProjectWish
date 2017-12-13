@@ -50,7 +50,7 @@ DionysusWish.scene_Test.prototype = {
 		if(!this.inventory.flagFind("key", this.game, this.game.flags)){
 			this.key = new Item(this.game, 'key', 'item_Key'); 
 			this.event = new Event(this.game, 'getKey', "addObjInv", null, this.key, this.inventory);
-			this.curSceneItem = new sceneItem(this.game, "key", 'scItem_Key', 740, 433, this.event, this.inventory);
+			this.curSceneItem = new sceneItem(this.game, "key", 'scItem_Key', 500, 412, this.event, this.inventory);
 			this.curSceneItem.show();
 			this.event.sceneObject = this.curSceneItem;
 		}

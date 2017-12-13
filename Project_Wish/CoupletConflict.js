@@ -24,10 +24,9 @@ DionysusWish.CoupletConflict.prototype = {
 		this.comebacksLeft = true;
         this.conflictBG = this.game.add.image(0,0,'athens');
 		this.audience = this.game.add.group();
-		this.audienceSprite = this.game.add.sprite(280, 320, 'audience');
-		this.audienceSprite.animations.add('wait',[0],false,1);
-		this.audienceSprite.animations.add('cheer', [1,2,3,4,5], true, 1);
-		this.audienceSprite.animations.add('boo', [6,7,8,9,10], true, 1);
+		this.audienceSprite = this.game.add.sprite(0, 300, 'audience');
+		this.audienceSprite.animations.add('react', [0,1,2,3], 15, true);
+		this.audienceSprite.animations.add('wait', [0], 1, false);
 		this.audience.add(this.audienceSprite);
 		this.conflictOpponent = this.game.add.sprite(440, 260, 'posse');
 		this.btnGroup = this.game.add.group();
@@ -83,11 +82,7 @@ DionysusWish.CoupletConflict.prototype = {
 	},
 	
 	audienceReact: function(isWon){
-		if(isWon){
-			this.audience.children[0].animations.play('cheer');
-		}else if(!isWon){
-			this.audience.children[0].animations.play('boo');
-		}
+		this.audience.children[0].animations.play('react');
 	},
 	//Starts a new Couplet Conflict round
 	newRound: function(){
@@ -210,8 +205,8 @@ DionysusWish.CoupletConflict.prototype = {
 	
 	//Returns the chosen insult
 	insultChosen: function(a, b, c){
+		this.btnSFX.play();
 		if(this.round % 2 == 1 || this.comebacksLeft == false){
-			this.btnSFX.play();
 			if(b.game.controlsOn && a.insult != undefined){
 				b.game.controlsOn = false;
 				var thisBubble = b.game.add.sprite(178, 0, 'ccBubble');
@@ -273,7 +268,9 @@ DionysusWish.CoupletConflict.prototype = {
 			this.removeComeback(button.insult);
 		}
 		button.insult =null;
-		this.replaceInsult(button);
+		if(this.round % 2 == 1 || this.comebacksLeft == false){
+			this.replaceInsult(button);
+		}
 	},
 	
 	addBtnText: function(insult, button, x, y){

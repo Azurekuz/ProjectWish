@@ -27,6 +27,6 @@ DionysusWish.MainMenu.prototype = {
 	},
 	
 	startGame: function(pointer){
-		this.state.start('CoupletConflict');
+		this.state.start('Intro');
 	}
 }

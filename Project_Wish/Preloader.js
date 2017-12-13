@@ -19,9 +19,11 @@ DionysusWish.Preloader.prototype = {
 		this.load.image('resBubble', 'assets/graphics/responseBubble.png');
 		this.load.image('minotaur','assets/images/bull.png');
 		this.load.image('posse','assets/images/posse.png');
-		this.load.spritesheet('audience', 'assets/images/gossipGroup.png', 172, 195, 11);
+		//this.load.spritesheet('audience', 'assets/images/gossipGroup.png', 172, 195, 11);
+		this.load.spritesheet('audience', 'assets/images/gossipGroup.png', 532, 192, 4);
 		this.load.image('btnFilter','assets/graphics/button.png');
 		this.load.image('inventory','assets/graphics/inventory.png');
+		this.load.image('introCard','assets/images/tittleCard.png');
 		this.load.spritesheet('inventBtn','assets/graphics/InventoryButton.png', 71, 65);
 		this.load.spritesheet('item_Grape','assets/images/items/grape.png', 69, 61, 2);
 		this.load.spritesheet('item_Bowl', 'assets/images/items/bowl.png', 69, 61, 2);
@@ -39,6 +41,7 @@ DionysusWish.Preloader.prototype = {
 		this.load.audio('3SecCheer', 'assets/sfx/3sec_cheer.mp3');
 		this.load.audio('3SecBoo', 'assets/sfx/3sec_boo.mp3');
 		this.load.audio('1SecSteps', 'assets/sfx/1sec_steps.mp3');
+		this.load.audio('introVoice', 'assets/voice/introNarration.mp3');
 		this.load.image('rBubble', 'assets/graphics/rChat.png');
 		this.load.image('lBubble', 'assets/graphics/lChat.png');
 	},
