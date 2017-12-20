@@ -5,7 +5,7 @@ DionysusWish.scene_Start = function(game){
 DionysusWish.scene_Start.prototype = {
 	create: function(){
 		this.sceneBG = this.add.image(0,0, 'bridge');
-		
+		this.sceneChangers = this.game.add.group();
 		if(this.game.BGMusic == null){
 			this.game.BGMusic = this.game.add.audio('overworldTheme');
 			this.game.BGMusic.loop = true;
@@ -25,8 +25,10 @@ DionysusWish.scene_Start.prototype = {
 		this.inventory = this.game.inventory;
 		this.inventory.showInventory();
 		
-		this.testChange = new sceneChange(this.game, "CoupletConflict", 15, 345);
-		this.coupletChange = new sceneChange(this.game, "scene_Test", 655, 325);
+		this.testChange = new sceneChange(this.game, "CoupletConflict", 15, 345, "The City");
+		this.coupletChange = new sceneChange(this.game, "scene_Test", 655, 325, "Forest Road");
+		this.sceneChangers.add(this.testChange.sprite);
+		this.sceneChangers.add(this.coupletChange.sprite);
 		
 		this.key = new Item(this.game, 'key', 'item_Key'); 
 		this.event = new Event(this.game, 'getKey', "addObjInv", null, this.key, this.inventory);
@@ -46,6 +48,10 @@ DionysusWish.scene_Start.prototype = {
 			this.curSceneItem.show();
 			this.event.sceneObject = this.curSceneItem;
 		}
+		for(this.i = 0; this.i < this.sceneChangers.children.length; this.i++){
+			this.sceneChangers.children[this.i].events.onInputOver.add(this.displayDestination, this);
+			this.sceneChangers.children[this.i].events.onInputOut.add(this.destroyDisplay, this);
+		}
 		/*this.curItemA = new Item(this.game, 'grape', 'item_Grape'); 
 		this.event = new Event(this.game, 'getGrape', "addObjInv", null, this.curItemA, this.inventory);
 		this.curSceneItem = new sceneItem(this.game, "grape", 'scItem_Grape', 625, 375, this.event);
@@ -62,4 +68,11 @@ DionysusWish.scene_Start.prototype = {
 	update: function(){
 		
 	},
+	
+	displayDestination: function(button, pointer){
+		this.hoverText = this.game.add.text(pointer.x, pointer.y - 20, button.sceneDisplay, { font: "12px Times New Roman", fill: '#FFFFFF', wordWrap:true, wordWrapWidth: this.game.world.width - pointer.x });
+	},
+	destroyDisplay: function(a, b, c){
+		this.hoverText.destroy();
+	}
 };

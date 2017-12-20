@@ -10,7 +10,13 @@ DionysusWish.scene_Test.prototype = {
 		this.inventory = this.game.inventory;
 		this.inventory.showInventory();
 		
-		this.sceneChangeA = new sceneChange(this.game, "scene_Start", 585, 360);
+		this.sceneChangers = this.game.add.group();
+		this.sceneChangeA = new sceneChange(this.game, "scene_Start", 585, 360, "Bridge");
+		this.sceneChangers.add(this.sceneChangeA.sprite);
+		for(this.i = 0; this.i < this.sceneChangers.children.length; this.i++){
+			this.sceneChangers.children[this.i].events.onInputOver.add(this.displayDestination, this);
+			this.sceneChangers.children[this.i].events.onInputOut.add(this.destroyDisplay, this);
+		}
 		
 		this.npcLines = [0, "You there! Sirs! You look like you know where to get a drink around here."
 						,"Water? Sirs, I am a Greek horse! It only follows that I drink wine.",
@@ -73,7 +79,7 @@ DionysusWish.scene_Test.prototype = {
 		if(this.testDialogue.inDialogue){
 			if(!this.testDialogue.changeBubble && !this.testDialogue.wait){
 				this.testDialogue.wait =true;
-			   	this.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.testDialogue.nextBubble, this.testDialogue);
+			   	//this.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.testDialogue.nextBubble, this.testDialogue);
 			}else{
 				this.testDialogue.initiate(this.testNPC.npcSprite, this.testNPC, this.game.activePointer, null);
 			}
@@ -91,7 +97,7 @@ DionysusWish.scene_Test.prototype = {
 		if(this.posDialogue.inDialogue){
 			if(!this.posDialogue.changeBubble && !this.posDialogue.wait){
 				this.posDialogue.wait =true;
-			   	this.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.posDialogue.nextBubble, this.posDialogue);
+			   //this.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.posDialogue.nextBubble, this.posDialogue);
 			}else{
 				this.posDialogue.initiate(this.testNPC.npcSprite, this.testNPC, this.game.activePointer, null);
 			}
@@ -109,7 +115,7 @@ DionysusWish.scene_Test.prototype = {
 		if(this.negDialogue.inDialogue){
 			if(!this.negDialogue.changeBubble && !this.negDialogue.wait){
 				this.negDialogue.wait =true;
-			   	this.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.negDialogue.nextBubble, this.negDialogue);
+			   	//this.game.time.events.add(Phaser.Timer.SECOND * 3.5, this.negDialogue.nextBubble, this.negDialogue);
 			}else{
 				this.negDialogue.initiate(this.testNPC.npcSprite, this.testNPC, this.game.activePointer, null);
 			}
@@ -124,4 +130,11 @@ DionysusWish.scene_Test.prototype = {
 			}
 		}
 	},
+	
+	displayDestination: function(button, pointer){
+		this.hoverText = this.game.add.text(pointer.x, pointer.y - 20, button.sceneDisplay, { font: "12px Times New Roman", fill: '#FFFFFF', wordWrap:true, wordWrapWidth: this.game.world.width - pointer.x });
+	},
+	destroyDisplay: function(a, b, c){
+		this.hoverText.destroy();
+	}
 };

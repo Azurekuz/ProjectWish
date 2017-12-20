@@ -23,7 +23,11 @@
 		<script type="text/javascript" src="NPC.js"></script>
 		<script type="text/javascript" src="ThankYou.js"></script>
 		<script type="text/javascript" src="Intro.js"></script>
-		
+		<script type="text/javascript" src="cutscene_Lose.js"></script>
+		<script type="text/javascript" src="cutscene_Win.js"></script>
+		<script type="text/javascript" src="cutscene_Preconflict.js"></script>
+		<script type="text/javascript" src="skipBTN.js"></script>
+		<script type="text/javascript" src="Credits.js"></script>
 		
 		<style>
 			body{
@@ -46,6 +50,10 @@
 				game.state.add('scene_Test', DionysusWish.scene_Test);
 				game.state.add('ThankYou', DionysusWish.ThankYou);
 				game.state.add('Intro', DionysusWish.Intro);
+				game.state.add('cutscene_Lose', DionysusWish.cutscene_Lose);
+				game.state.add('cutscene_Win', DionysusWish.cutscene_Win);
+				game.state.add('cutscene_Preconflict', DionysusWish.cutscene_Preconflict);
+				game.state.add('Credits', DionysusWish.Credits);
 				game.state.start('Boot');
 			}
 		</script>

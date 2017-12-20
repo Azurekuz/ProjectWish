@@ -35,6 +35,8 @@ DionysusWish.Preloader.prototype = {
 		this.load.spritesheet('item_Wine', 'assets/images/items/wine.png', 69, 61, 2);
 		this.load.spritesheet('sceneChange','assets/graphics/sceneChanger.png', 38, 51, 3);
 		this.load.spritesheet('npc_pegasus','assets/images/npc/npc_pegasus.png', 162, 200);
+		this.load.spritesheet('skipBTN','assets/graphics/skipBTN.png', 35, 35);
+		this.load.spritesheet('creditsBTN','assets/graphics/creditsBTN.png', 80, 32);
 		this.load.audio('conflictTheme', 'assets/music/cybordNinja.mp3');
 		this.load.audio('overworldTheme', 'assets/music/Overworld.mp3');
 		this.load.audio('clopBTN', 'assets/sfx/clopBTN.mp3');
@@ -44,6 +46,8 @@ DionysusWish.Preloader.prototype = {
 		this.load.audio('introVoice', 'assets/voice/introNarration.mp3');
 		this.load.image('rBubble', 'assets/graphics/rChat.png');
 		this.load.image('lBubble', 'assets/graphics/lChat.png');
+		this.load.image('endScreen', 'assets/images/endScreen.png');
+		this.load.image('credits', 'assets/images/Credits.png');
 	},
 	
 	create: function(){

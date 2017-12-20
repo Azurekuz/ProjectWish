@@ -25,7 +25,9 @@ DionysusWish.CoupletConflict.prototype = {
         this.conflictBG = this.game.add.image(0,0,'athens');
 		this.audience = this.game.add.group();
 		this.audienceSprite = this.game.add.sprite(0, 300, 'audience');
-		this.audienceSprite.animations.add('react', [0,1,2,3], 15, true);
+		this.audienceSprite.animations.add('excited1', [0,1,2,3], 15, true);
+		this.audienceSprite.animations.add('excited2', [0,1,2,3], 45, true);
+		this.audienceSprite.animations.add('excited3', [0,1,2,3], 75, true);
 		this.audienceSprite.animations.add('wait', [0], 1, false);
 		this.audience.add(this.audienceSprite);
 		this.conflictOpponent = this.game.add.sprite(440, 260, 'posse');
@@ -82,12 +84,25 @@ DionysusWish.CoupletConflict.prototype = {
 	},
 	
 	audienceReact: function(isWon){
-		this.audience.children[0].animations.play('react');
+		var totalHP = (this.playerHP + this.oppHP);
+		if(totalHP > 4 && totalHP <= 6){
+			this.audience.children[0].animations.play('excited1');
+		}else if(totalHP > 2 && totalHP <= 4){
+			this.audience.children[0].animations.play('excited2');
+		}else if(totalHP >= 1 && totalHP <= 2){
+			this.audience.children[0].animations.play('excited3');
+		}
 	},
 	//Starts a new Couplet Conflict round
 	newRound: function(){
 		console.log("Our HP: " + this.playerHP + " | " + "Opponent HP: " + this.oppHP);
-		this.audience.children[0].animations.play('wait');
+		if((this.playerHP + this.oppHP) > 4){
+			this.audience.children[0].animations.play('wait');
+		}else if((this.playerHP + this.oppHP) > 2 && (this.playerHP + this.oppHP) <= 4){
+			this.audience.children[0].animations.play('excited1');
+		}else if((this.playerHP + this.oppHP) >= 1 && (this.playerHP + this.oppHP) <= 2){
+			this.audience.children[0].animations.play('excited2');
+		}
 		if(this.playerHP != 0 && this.oppHP != 0){
 			this.round = this.round + 1;
 			if(this.round % 2 == 0){
@@ -116,11 +131,11 @@ DionysusWish.CoupletConflict.prototype = {
 		if(this.playerHP == 0){
 		   	this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU LOSE!", { font: "40px Times New Roman", fill: "#111111", fontWeight:900});
 			console.log("You lost!");
-			this.state.start("scene_Start");
+			this.state.start("cutscene_Lose");
 		}else if(this.oppHP == 0){
 			this.game.add.text((this.world.centerX) - 150, (this.world.centerY), "YOU WIN!", { font: "40px Times New Roman", fill: "#111111", fontWeight:900});
 			console.log("You won!");
-			this.state.start("ThankYou");
+			this.state.start("cutscene_Win");
 		}
 	},
 	
@@ -245,14 +260,18 @@ DionysusWish.CoupletConflict.prototype = {
 	dismissDialogue: function(dialogueGroup, pointer, button){
 		if(this.isWinner(button) && this.round % 2 == 1 || this.comebacksLeft == false){
 			this.audienceReact(true);
-			this.audCheerSFX.play();
+			this.audBooSFX.play();
 			this.oppHP -= 1;
 		}else if(this.isWinner(button) && this.round % 2 == 0 && this.comebacksLeft == true){
 			this.audienceReact(true);
 			this.audCheerSFX.play(); 
-		}else{
-			this.audienceReact(false);
-			this.audBooSFX.play();
+		}else if(!this.isWinner(button) && this.round % 2 == 1 || this.comebacksLeft == false){
+			this.audienceReact(true);
+			this.audCheerSFX.play();
+			this.playerHP -= 1;
+		}else if(!this.isWinner(button) && this.round % 2 == 0 && this.comebacksLeft == true){
+			this.audienceReact(true);
+			this.audBooSFX.play(); 
 			this.playerHP -= 1;
 		}
 		while(dialogueGroup.children.length !=0){
