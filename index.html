@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Dionysus's Wish</title>
+        <script type="text/javascript" src="phaser.js"> </script>
+		<script type="text/javascript" src="Boot.js"></script>
+		<script type="text/javascript" src="Preloader.js"></script>
+		<script type="text/javascript" src="MainMenu.js"></script>
+		<script type="text/javascript" src="scene_Start.js"></script>
+		<script type="text/javascript" src="scene_Test.js"></script>
+        <script type="text/javascript" src="CoupletConflict.js"></script>
+      	<script type="text/javascript" src="CoupletConflictModule.js"></script>
+		<script type="text/javascript" src="Inventory.js"></script>
+		<script type="text/javascript" src="Item.js"></script>
+		<script type="text/javascript" src="Event.js"></script>
+		<script type="text/javascript" src="Flag.js"></script>
+		<script type="text/javascript" src="sceneItem.js"></script>
+		<script type="text/javascript" src="PoemPouch.js"></script>
+		<script type="text/javascript" src="Insult.js"></script>
+		<script type="text/javascript" src="sceneChange.js"></script>
+		<script type="text/javascript" src="Dialogue.js"></script>
+		<script type="text/javascript" src="NPC.js"></script>
+		<script type="text/javascript" src="ThankYou.js"></script>
+		<script type="text/javascript" src="Intro.js"></script>
+		<script type="text/javascript" src="cutscene_Lose.js"></script>
+		<script type="text/javascript" src="cutscene_Win.js"></script>
+		<script type="text/javascript" src="cutscene_Preconflict.js"></script>
+		<script type="text/javascript" src="skipBTN.js"></script>
+		<script type="text/javascript" src="Credits.js"></script>
+		
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+				background-color: #000000;
+			}
+		</style>
+    </head>
+	<body>
+		<div id="gameContainer"></div>
+		<script type="text/javascript">
+			window.onload = function(){
+				var game = new Phaser.Game(800, 600, Phaser.AUTO, 'gameContainer');
+				game.state.add('Boot', DionysusWish.Boot);
+				game.state.add('Preloader', DionysusWish.Preloader);
+				game.state.add('MainMenu', DionysusWish.MainMenu);
+				game.state.add('scene_Start', DionysusWish.scene_Start);
+                game.state.add('CoupletConflict', DionysusWish.CoupletConflict);
+				game.state.add('scene_Test', DionysusWish.scene_Test);
+				game.state.add('ThankYou', DionysusWish.ThankYou);
+				game.state.add('Intro', DionysusWish.Intro);
+				game.state.add('cutscene_Lose', DionysusWish.cutscene_Lose);
+				game.state.add('cutscene_Win', DionysusWish.cutscene_Win);
+				game.state.add('cutscene_Preconflict', DionysusWish.cutscene_Preconflict);
+				game.state.add('Credits', DionysusWish.Credits);
+				game.state.start('Boot');
+			}
+		</script>
+    </body>
+</html>
